@@ -14,10 +14,10 @@ How to clone a repository:
 
 `gsclone git://github.com/grahamc/git-multi.git`
 
-## cachehash.sh
-`cachehash.sh repo_uri [clone_to [hash]]`
+## git-cclone
+`git cclone repo_uri [clone_to [hash]]`
 
-## smartsub.py
+## git-submodule-describe
 
 Outputs submodule data into parsable format
 
@@ -27,6 +27,6 @@ git@github.com:nationalfield/pheanstalk.git lib/vendor/pheanstalk   5b38924730b7
 git@github.com:nationalfield/tinymce.git    web/js/tiny_mce 0c3da0cc9e33df0f2b82f70bf7e24405de216bee
 ```
 
-## smartsub-clone.py
- Clones all the submodules recursively attheir defined location and hashes.
+## git-submodule-cclone
+ Clones all the submodules recursively at their defined location and hashes.
 

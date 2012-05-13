@@ -4,7 +4,7 @@ import subprocess, os
 
 was = os.getcwd()
 
-gitsub = subprocess.check_output('smartsub.py')
+gitsub = subprocess.check_output(['git', 'submodule-describe')
 for line in gitsub.split("\n"):
     if line:
         args = line.split()
@@ -12,6 +12,6 @@ for line in gitsub.split("\n"):
         subprocess.call(args)
 
         os.chdir(args[2])
-        subprocess.call(['smartsub-clone.py'])
+        subprocess.call(['git', 'submodule-cclone'])
         os.chdir(was)
 

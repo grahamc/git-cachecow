@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cachehash.sh "$1" "$2"
-
-cd "$2"
-smartsub-clone.py
