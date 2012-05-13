@@ -4,7 +4,10 @@ for caching.
 
 Will also inflate submodules recursively.
 
+With 8 submodules, a total of 150MB of data to clone:
+
 Before caching: `13.79s user 6.36s system 18% cpu 1:49.45 total`
+
 After caching: `2.12s user 2.07s system 25% cpu 16.310 total`
 
 How to clone a repository:
