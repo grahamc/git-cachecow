@@ -10,9 +10,9 @@ Before caching: `13.79s user 6.36s system 18% cpu 1:49.45 total`
 
 After caching: `2.12s user 2.07s system 25% cpu 16.310 total`
 
-How to clone a repository:
+How to clone a repository with submodules:
 
-`gsclone git://github.com/grahamc/git-multi.git`
+`git scclone git://github.com/grahamc/git-multi.git`
 
 ## git-cclone
 `git cclone repo_uri [clone_to [hash]]`
