@@ -30,3 +30,5 @@ git@github.com:nationalfield/tinymce.git    web/js/tiny_mce 0c3da0cc9e33df0f2b82
 ## git-submodule-cclone
  Clones all the submodules recursively at their defined location and hashes.
 
+
+[![Build Status](https://secure.travis-ci.org/grahamc/git-cachecow.png)](http://travis-ci.org/grahamc/git-cachecow)
