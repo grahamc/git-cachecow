@@ -1,5 +1,6 @@
 #!/bin/bash
 
+git clone owner.git owner
 cd owner
 ../../git-submodule-describe > ../submodule-describe.output
 

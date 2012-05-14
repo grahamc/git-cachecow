@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+[submodule "sub_1"]
+	url = /Users/gchristensen/projects/gitsubcache/test/sub_1.git
+[submodule "sub_2"]
+	url = /Users/gchristensen/projects/gitsubcache/test/sub_2.git
+[submodule "sub_3"]
+	url = git://github.com/grahamc/sub3.git
+[submodule "test foo/bar"]
+	url = git://github.com/grahamc/sub3.git
