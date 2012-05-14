@@ -9,7 +9,7 @@ _dir = os.path.dirname(sys.argv[0])
 gitsub = backwards.check_output(['%s/git-submodule-describe' % _dir])
 for line in gitsub.split("\n"):
     if line:
-        args = line.split()
+        args = line.split("\t")
         args.insert(0, '%s/git-cclone' % _dir)
         subprocess.call(args)
 
