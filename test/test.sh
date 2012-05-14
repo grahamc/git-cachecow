@@ -2,6 +2,7 @@
 
 E=0
 
-./describe.sh; E=$E+$?
-./describe-empty.sh; E=$E+$?
+./describe.sh; E=$(($E+$?))
+./describe-empty.sh; E=$(($E+$?))
 
+exit $((0 + $E))
