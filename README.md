@@ -10,6 +10,9 @@ Before caching: `13.79s user 6.36s system 18% cpu 1:49.45 total`
 
 After caching: `2.12s user 2.07s system 25% cpu 16.310 total`
 
+Cached repositories are stored in `~/.git-cow` by default. You can override
+this by setting `$GIT_COW`.
+
 How to clone a repository with submodules:
 
 `git scclone git://github.com/grahamc/git-multi.git`
