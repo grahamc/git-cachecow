@@ -7,7 +7,14 @@ CID="$3"
 WAS=`pwd`
 CACHE=`echo $REPO | md5sum | cut -d' ' -f1`
 _DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-CREPO="$_DIR/cache/$CACHE.git"
+
+if [ -z "$GIT_COW" ]; then
+    export GIT_COW="$HOME/.git-cow"
+fi
+
+mkdir -p $GIT_COW
+
+CREPO="$GIT_COW/$CACHE.git"
 
 if [ -d "$CREPO" ]; then
     cd "$CREPO"
