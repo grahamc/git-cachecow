@@ -1,7 +1,9 @@
 #!/bin/bash
 
-git cclone "$1" "$2"
+_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+$_DIR/git-cclone "$1" "$2" "$3"
 
 cd "$2"
-git submodule-cclone
+$_DIR/git-submodule-cclone
 

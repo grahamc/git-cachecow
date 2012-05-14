@@ -1,17 +1,19 @@
 #!/usr/bin/python
 
-import backwards, os
+import subprocess, backwards, os, sys
 
 was = os.getcwd()
 
-gitsub = backwards.check_output(['git', 'submodule-describe'])
+_dir = os.path.dirname(sys.argv[0])
+
+gitsub = backwards.check_output(['%s/git-submodule-describe' % _dir])
 for line in gitsub.split("\n"):
     if line:
         args = line.split()
-        args.insert(0, 'cachehash.sh')
+        args.insert(0, '%s/git-cclone' % _dir)
         subprocess.call(args)
 
         os.chdir(args[2])
-        subprocess.call(['git', 'submodule-cclone'])
+        subprocess.call(['%s/git-submodule-cclone' % _dir])
         os.chdir(was)
 

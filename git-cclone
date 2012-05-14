@@ -5,9 +5,9 @@ TO="$2"
 CID="$3"
 
 WAS=`pwd`
-CACHE=`echo $REPO | md5`
-CDIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-CREPO="$CDIR/cache/$CACHE.git"
+CACHE=`echo $REPO | md5sum | cut -d' ' -f1`
+_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CREPO="$_DIR/cache/$CACHE.git"
 
 if [ -d "$CREPO" ]; then
     cd "$CREPO"
