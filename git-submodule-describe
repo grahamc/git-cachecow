@@ -36,13 +36,12 @@ for line in gm:
         data[row['key']] = row
         row = deepcopy(d_row)
 
+# Only work on repos that have not been checked out
 sub_hash = re.compile('^-(.*?) (.*?)$')
 gf = backwards.check_output('git submodule', shell=True).split("\n")
 for line in gf:
     h = sub_hash.search(line)
     if h:
-        data[h.group(2)]['cid'] = h.group(1)
-
-for key, row in data.iteritems():
-    print "%s\t%s\t%s" % (row['uri'], row['path'], row['cid'])
+        row = data[h.group(2)]
+        print "%s\t%s\t%s" % (row['uri'], row['path'], h.group(1))
 
