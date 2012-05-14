@@ -21,17 +21,18 @@ sub_path = re.compile('^path = (.*?)$')
 sub_uri = re.compile('^url = (.*?)$')
 for line in gm:
     line = line.strip()
+
     m = sub_name.search(line)
+    p = sub_path.search(line)
+    u = sub_uri.search(line)
+
     if m:
         row['key'] = m.group(1)
-
-    p = sub_path.search(line)
-    if p:
+    elif p:
         row['path'] = p.group(1)
-
-    u = sub_uri.search(line)
-    if u:
+    elif u:
         row['uri'] = u.group(1)
+
     if row['key'] and row['uri'] and row['path']:
         data[row['key']] = row
         row = deepcopy(d_row)
