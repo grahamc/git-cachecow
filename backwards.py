@@ -1,7 +1,7 @@
 try:
     from subprocess import check_output
 except ImportError:
-    from subprocess import CalledProcessError, Popen
+    from subprocess import CalledProcessError, Popen, PIPE
 
     def check_output(*popenargs, **kwargs):
         r"""Run command with arguments and return its output as a byte string.
