@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-import subprocess, os
+import backwards, os
 
 was = os.getcwd()
 
-gitsub = subprocess.check_output(['git', 'submodule-describe')
+gitsub = backwards.check_output(['git', 'submodule-describe'])
 for line in gitsub.split("\n"):
     if line:
         args = line.split()
