@@ -1,0 +1,42 @@
+Caches git repositories locally. Every time a build happens, it uses local
+caches for pulling. Submodules especially, which are harder to intercept
+for caching.
+
+Will also inflate submodules recursively.
+
+With 8 submodules, a total of 150MB of data to clone:
+
+Before caching: `13.79s user 6.36s system 18% cpu 1:49.45 total`
+
+After caching: `2.12s user 2.07s system 25% cpu 16.310 total`
+
+Cached repositories are stored in `~/.git-cow` by default. You can override
+this by setting `$GIT_COW`.
+
+# Installation
+Clone git-cachecow and add the directory to your `$PATH`.
+
+# Usage
+
+How to clone a repository with submodules:
+
+`git scclone git://github.com/grahamc/git-multi.git`
+
+## git-cclone
+`git cclone repo_uri [clone_to [hash]]`
+
+## git-submodule-describe
+
+Outputs submodule data into parsable format
+
+```
+git://github.com/nationalfield/symfony.git  lib/vendor/symfony  aec67b5e7ba148c79b884b86988e42f9f9483bcd
+git@github.com:nationalfield/pheanstalk.git lib/vendor/pheanstalk   5b38924730b70ea720f760369899398479e2ea13
+git@github.com:nationalfield/tinymce.git    web/js/tiny_mce 0c3da0cc9e33df0f2b82f70bf7e24405de216bee
+```
+
+## git-submodule-cclone
+ Clones all the submodules recursively at their defined location and hashes.
+
+
+[![Build Status](https://secure.travis-ci.org/grahamc/git-cachecow.png)](http://travis-ci.org/grahamc/git-cachecow)
