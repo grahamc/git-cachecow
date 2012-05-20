@@ -1,33 +1,104 @@
-#!/bin/bash
+#!/usr/bin/python
 
+import os, sys, subprocess, hashlib
+
+
+def cache_path(repo):
+    return os.environ['GIT_COW'] + '/' + hashlib.md5(repo).hexdigest() + '.git'
+
+def is_cached(repo):
+    path = cache_path(repo)
+    return os.path.exists(path)
+
+def do_cache(repo):
+    if is_cached(repo):
+        return update_cache(repo)
+    else:
+        return cache_repo(repo)
+
+def update_cache(repo):
+    path = cache_path(repo)
+    os.chdir(path)
+    print "Updating %s cache" % repo
+    e = subprocess.call(['git', 'fetch'])
+    return e == 0
+
+def cache_repo(repo):
+    print "Caching %s" % repo
+    e = subprocess.call(['git', 'clone', '--mirror', repo, cache_path(repo)])
+    return e == 0
+
+def clone(repo, to, use_cache=True):
+    args = ['git', 'clone']
+    if use_cache:
+        print "Cloning from cache"
+        args.append('--reference')
+        args.append(cache_path(repo))
+    else:
+        print "Skipping the cache"
+
+    args.append(repo)
+    args.append(to)
+
+    e = subprocess.call(args)
+    return e == 0
+
+def checkout_revision(rev):
+    e = subprocess.call(['git', 'checkout', rev])
+    return e == 0
+
+
+
+_was = os.getcwd()
+_dir = os.path.abspath(os.path.dirname(__file__))
+
+if not 'GIT_COW' in os.environ:
+    os.environ['GIT_COW'] = os.environ['HOME'] + '/.git-cow/'
+
+if not os.path.exists(os.environ['GIT_COW']):
+    os.mkdir(os.environ['GIT_COW'])
+
+
+if len(sys.argv) < 3:
+    print "Proper usage: git-cclone repo.git dest [commit-ish]"
+    sys.exit(255)
+
+repo = sys.argv[1]
+to = os.path.abspath(sys.argv[2])
+if len(sys.argv) == 4:
+    rev = sys.argv[3]
+else:
+    rev = None
+
+if os.path.exists(to) and os.listdir(to):
+    print "Dest directory exists. Cannot continue."
+    sys.exit(4)
+
+success = do_cache(repo)
+
+if success:
+    success = clone(repo, to)
+
+if not success:
+    success = clone(repo, to, use_cache=False)
+
+if not success:
+    print "There was an issue making it impossible to clone this repository."
+    sys.exit(1)
+
+if rev:
+    os.chdir(to)
+    print "Checking out %s" % rev
+    success = checkout_revision(rev)
+    os.chdir(_was)
+    if not success:
+        print "Failure checking out %s" % ref
+        sys.exit(2)
+
+sys.exit(0)
+
+"""
 REPO="$1"
 TO="$2"
 CID="$3"
-
-WAS=`pwd`
-CACHE=`echo $REPO | md5sum | cut -d' ' -f1`
-_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-if [ -z "$GIT_COW" ]; then
-    export GIT_COW="$HOME/.git-cow"
-fi
-
-mkdir -p $GIT_COW
-
-CREPO="$GIT_COW/$CACHE.git"
-
-if [ -d "$CREPO" ]; then
-    cd "$CREPO"
-    git fetch
-    cd "$WAS"
-else
-    git clone --mirror "$1" "$CREPO"
-fi
-
-git clone "$REPO" --reference "$CREPO" "$TO"
-
-if [ -n "$CID" ]; then
-    cd "$TO"
-    git checkout "$CID"
-    cd "$WAS"
-fi
+"""

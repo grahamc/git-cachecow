@@ -2,10 +2,9 @@
 
 import subprocess, backwards, os, sys
 
-was = os.getcwd()
+_was = os.getcwd()
 
-_dir = os.path.dirname(sys.argv[0])
-
+_dir = os.path.abspath(os.path.dirname(__file__))
 gitsub = backwards.check_output(['%s/git-submodule-describe' % _dir])
 for line in gitsub.split("\n"):
     if line:
@@ -15,5 +14,5 @@ for line in gitsub.split("\n"):
 
         os.chdir(args[2])
         subprocess.call(['%s/git-submodule-cclone' % _dir])
-        os.chdir(was)
+        os.chdir(_was)
 

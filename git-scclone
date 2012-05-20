@@ -1,9 +1,29 @@
-#!/bin/bash
+#!/usr/bin/python
 
-_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+import os, sys, subprocess
 
-$_DIR/git-cclone "$1" "$2" "$3"
+_dir = os.path.abspath(os.path.dirname(__file__))
 
-cd "$2"
-$_DIR/git-submodule-cclone
+if len(sys.argv) < 3:
+    print "Proper usage: git-scclone repo.git dest [commit-ish]"
+    sys.exit(255)
+
+repo = sys.argv[1]
+to = os.path.abspath(sys.argv[2])
+if len(sys.argv) == 4:
+    rev = sys.argv[3]
+else:
+    rev = None
+
+p_args = ["%s/git-cclone" % _dir, repo, to];
+if rev:
+    p_args.append(rev)
+
+e = subprocess.call(p_args)
+if e != 0:
+    sys.exit(1)
+
+os.chdir(to)
+subprocess.call("%s/git-submodule-cclone" % _dir)
+
 
