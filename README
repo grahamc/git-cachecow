@@ -14,7 +14,14 @@ Cached repositories are stored in `~/.git-cow` by default. You can override
 this by setting `$GIT_COW`.
 
 # Installation
-Clone git-cachecow and add the directory to your `$PATH`.
+
+Either:
+
+ - with pypi: `sudo pip install git-cachecow`
+
+Or:
+
+ - Clone git-cachecow and add the directory to your `$PATH`.
 
 # Usage
 
