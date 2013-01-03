@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-import os, sys, subprocess, hashlib
+import os, os.path, sys, subprocess, hashlib
 
 
 def cache_path(repo):
-    return os.environ['GIT_COW'] + '/' + hashlib.md5(repo).hexdigest() + '.git'
+    return os.path.join(os.environ['GIT_COW'], hashlib.md5(repo).hexdigest() + '.git')
 
 def is_cached(repo):
     path = cache_path(repo)
@@ -53,7 +53,7 @@ _was = os.getcwd()
 _dir = os.path.abspath(os.path.dirname(__file__))
 
 if not 'GIT_COW' in os.environ:
-    os.environ['GIT_COW'] = os.environ['HOME'] + '/.git-cow/'
+    os.environ['GIT_COW'] = os.environ['HOME'] + '/.git-cow'
 
 if not os.path.exists(os.environ['GIT_COW']):
     os.mkdir(os.environ['GIT_COW'])
